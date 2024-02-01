@@ -1,1 +1,1 @@
-# Auto_ML_python for different different project
+# Auto_ML_python for different different projects related to Data Science
