@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import evalml
 from evalml import AutoMLSearch
-from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
 import mlflow
 import mlflow.sklearn
 import shutil
@@ -13,14 +13,13 @@ import os
 def load_data():
     # Load your dataset here
     # For example, assuming you have a CSV file named 'your_data.csv'
-    df = pd.read_csv('laptop_data.csv')
-    df = df.drop('Unnamed: 0', axis=1)
+    df = pd.read_csv('iris.csv')
     return df
 
 data = load_data()
 
 # Sidebar for user input
-st.sidebar.header('AutoML Regression')
+st.sidebar.header('AutoML Classification')
 
 # Select target variable
 target_variable = st.sidebar.selectbox('Select Target Variable', data.columns)
@@ -31,8 +30,7 @@ feature_columns = st.sidebar.multiselect('Select Features', data.columns)
 # Split the data into training and testing sets
 X = data[feature_columns]
 y = data[target_variable]
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-X_train, X_test, y_train, y_test = evalml.preprocessing.split_data(X, y, problem_type='regression')
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Sidebar section for prediction
 st.sidebar.header('Prediction')
@@ -41,8 +39,8 @@ st.sidebar.header('Prediction')
 selected_functionality = st.sidebar.radio("Select Functionality", ["Run AutoML", "Prediction"])
 
 if selected_functionality == "Run AutoML":
-    # Perform AutoML Regression
-    if st.sidebar.button('Run AutoML Regression'):
+    # Perform AutoML Classification
+    if st.sidebar.button('Run AutoML Classification'):
         # Clear existing model directory
         model_path = 'mlflow_best_model'
         if os.path.exists(model_path):
@@ -51,7 +49,7 @@ if selected_functionality == "Run AutoML":
         # Create an empty directory
         os.makedirs(model_path)
 
-        automl = AutoMLSearch(X_train=X_train, y_train=y_train, problem_type='regression', objective='r2')
+        automl = AutoMLSearch(X_train=X_train, y_train=y_train, problem_type='multiclass', objective='log loss multiclass',max_iterations=20)
         automl.search()
 
         # Display model rankings
@@ -66,10 +64,11 @@ if selected_functionality == "Run AutoML":
         mlflow.sklearn.save_model(best_pipeline, model_path)
         st.success('Best model saved as mlflow_best_model')
 
-        # Plot actual vs predicted values
-        st.write('## Actual vs Predicted Values')
-        df_results = pd.DataFrame({'Actual': y_test, 'Predicted': best_pipeline.predict(X_test)})
-        st.line_chart(df_results)
+        # Plot confusion matrix
+        st.write('## Confusion Matrix')
+        automl.describe_pipeline(automl.rankings.iloc[0]["id"])
+        automl.describe_pipeline(automl.rankings.iloc[0]["id"]).visualize()
+        st.pyplot()
 
 elif selected_functionality == "Prediction":
     # File uploader for new dataset
@@ -87,12 +86,6 @@ elif selected_functionality == "Prediction":
         # Display predictions
         st.write('## Predictions on New Dataset')
         st.write(predictions)
-
-        # Generate plots based on predictions (modify as needed)
-        # For example, you can create a histogram of predicted values
-        st.write('## Histogram of Predicted Values')
-        plt.hist(predictions, bins=20, color='skyblue', edgecolor='black')
-        st.pyplot()
 
 # Display the data
 st.write('## Dataset')
