@@ -1,17 +1,17 @@
 import streamlit as st
 import pandas as pd
 from prophet import Prophet
-import plotly.graph_objects as go  # Import go module from plotly.graph_objects
-import plotly.express as px
+import plotly.graph_objects as go
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 # Load sample data (replace with your own dataset)
 @st.cache
 def load_data():
     # Load your dataset here
     # For example, assuming you have a CSV file named 'your_data.csv'
-    df = pd.read_csv('weather_data.csv')
-    # df = df.rename(columns={'Date': 'ds', 'temp': 'y'})  # Adjust column names as needed
-    df.columns=['ds', 'y']  # Adjust column names as needed
+    df = pd.read_csv('suzlon.csv')
+    df = df[['Date', 'Close']]
+    df.columns = ['ds', 'y']
     return df
 
 data = load_data()
@@ -52,17 +52,44 @@ if selected_functionality == "Run Forecast":
         # Make predictions
         forecast = prophet_model.predict(future)
 
+        # Evaluate model performance
+        metrics = {
+            'MAE': mean_absolute_error(data['y'], forecast['yhat'][:-forecast_horizon]),
+            'MSE': mean_squared_error(data['y'], forecast['yhat'][:-forecast_horizon]),
+            'RMSE': mean_squared_error(data['y'], forecast['yhat'][:-forecast_horizon], squared=False)
+        }
+
+        # Display evaluation metrics
+        st.write('## Model Evaluation Metrics')
+        st.write(metrics)
+
         # Separate historical data and forecasted values
         historical_data = data[['ds', 'y']]
         forecast_values = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
 
         # Display forecast plot
         st.write('## Time Series Forecast')
-        fig = px.line()
+        fig = go.Figure()
+
+        # Plot historical data
         fig.add_trace(go.Scatter(x=historical_data['ds'], y=historical_data['y'], mode='lines', name='Historical Data'))
+
+        # Plot forecasted values after historical data
         fig.add_trace(go.Scatter(x=forecast_values['ds'], y=forecast_values['yhat'], mode='lines', name='Forecast'))
-        fig.add_trace(go.Scatter(x=forecast_values['ds'], y=forecast_values['yhat_lower'], mode='lines', name='Lower Bound'))
-        fig.add_trace(go.Scatter(x=forecast_values['ds'], y=forecast_values['yhat_upper'], mode='lines', name='Upper Bound'))
+
+        # Plot 95% confidence interval
+        fig.add_trace(go.Scatter(x=forecast_values['ds'], y=forecast_values['yhat_upper'], mode='lines', line=dict(color='rgba(0,100,80,0.2)'), name='Upper Bound'))
+        fig.add_trace(go.Scatter(x=forecast_values['ds'], y=forecast_values['yhat_lower'], mode='lines', line=dict(color='rgba(0,100,80,0.2)'), name='Lower Bound'))
+
+        # Set layout for a professional appearance
+        fig.update_layout(
+            title='Time Series Forecast',
+            xaxis_title='Date',
+            yaxis_title='Value',
+            template='plotly_dark',  # Choose a template that suits your style
+            showlegend=True,
+        )
+
         st.plotly_chart(fig)
 
 elif selected_functionality == "Prediction":
@@ -86,11 +113,25 @@ elif selected_functionality == "Prediction":
 
         # Display forecast plot for new data
         st.write('## Forecast Plot for New Dataset')
-        fig = px.line()
+        fig = go.Figure()
+
+        # Plot historical data
         fig.add_trace(go.Scatter(x=historical_data_new['ds'], y=historical_data_new['y'], mode='lines', name='Historical Data'))
+
+        # Plot forecasted values
         fig.add_trace(go.Scatter(x=forecast_values_new['ds'], y=forecast_values_new['yhat'], mode='lines', name='Forecast'))
         fig.add_trace(go.Scatter(x=forecast_values_new['ds'], y=forecast_values_new['yhat_lower'], mode='lines', name='Lower Bound'))
         fig.add_trace(go.Scatter(x=forecast_values_new['ds'], y=forecast_values_new['yhat_upper'], mode='lines', name='Upper Bound'))
+
+        # Set layout for a professional appearance
+        fig.update_layout(
+            title='Forecast Plot for New Dataset',
+            xaxis_title='Date',
+            yaxis_title='Value',
+            template='plotly_dark',  # Choose a template that suits your style
+            showlegend=True,
+        )
+
         st.plotly_chart(fig)
 
 # Display the data
