@@ -1,12 +1,10 @@
 import streamlit as st
 import pandas as pd
-import plotly.graph_objects as go
-import plotly.express as px
 from prophet import Prophet
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from sklearn.metrics import mean_absolute_error, mean_squared_error
-import warnings
-warnings.filterwarnings("ignore")
+import plotly.graph_objects as go
+import plotly.express as px
 
 # Load sample data (replace with your own dataset)
 @st.cache
@@ -27,22 +25,22 @@ st.sidebar.header('Time Series Forecasting')
 target_variable = st.sidebar.selectbox('Select Target Variable', data.columns)
 
 # Sidebar section for forecasting parameters
-st.sidebar.header('Model Parameters')
+st.sidebar.header('Forecasting Parameters')
 
 # Select forecast horizon
 forecast_horizon = st.sidebar.slider('Select Forecast Horizon', min_value=1, max_value=365, value=30)
 
 # Select model
-selected_model = st.sidebar.radio("Select Model", ["Prophet", "SARIMA"])
+selected_model = st.sidebar.selectbox('Select Model', ['Prophet', 'SARIMA'])
 
-# Create a model instance with selected parameters
+# Create a model instance based on user selection
 if selected_model == 'Prophet':
     model = Prophet()
 elif selected_model == 'SARIMA':
     model = SARIMAX(data['y'], order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
 
 # Sidebar section for prediction
-st.sidebar.header('Functionality')
+st.sidebar.header('Prediction')
 
 # Radio button for selecting functionality
 selected_functionality = st.sidebar.radio("Select Functionality", ["Run Forecast", "Prediction"])
@@ -50,36 +48,37 @@ selected_functionality = st.sidebar.radio("Select Functionality", ["Run Forecast
 if selected_functionality == "Run Forecast":
     # Perform Time Series Forecasting
     if st.sidebar.button('Run Forecast'):
-        # Fit the model
         if selected_model == 'Prophet':
-            model.fit(data)
-        elif selected_model == 'SARIMA':
-            # Fit the SARIMA model
-            model_fit = model.fit(disp=False)
+            # Fit the model for Prophet
+            model_fit = model.fit(data)
+            
+            # Create future dates for Prophet
+            future_dates = pd.date_range(start=data['ds'].max(), periods=forecast_horizon, freq='D')
+            future = pd.DataFrame({'ds': future_dates})
 
-        # Create future dates
-        future_dates = pd.date_range(start=data['ds'].max(), periods=forecast_horizon + 1, freq='D')[1:]
-        future = pd.DataFrame({'ds': future_dates})
+            # Make predictions
+            forecast = model_fit.predict(future)
 
-        # Make predictions
-        if selected_model == 'Prophet':
-            forecast = model.predict(future)
+            # Evaluate model performance for Prophet
+            metrics = {
+                'MAE': mean_absolute_error(data['y'], forecast['yhat'][:-forecast_horizon]),
+                'MSE': mean_squared_error(data['y'], forecast['yhat'][:-forecast_horizon]),
+                'RMSE': mean_squared_error(data['y'], forecast['yhat'][:-forecast_horizon], squared=False)
+            }
+            
         elif selected_model == 'SARIMA':
+            # Fit the model for SARIMA
+            model_fit = model.fit()
+
+            # Forecast for SARIMA
             forecast = model_fit.get_forecast(steps=forecast_horizon)
 
-        # Evaluate model performance
-        if selected_model == 'Prophet':
-            if not forecast.empty:
-                metrics = {
-                    'MAE': mean_absolute_error(data['y'], forecast['yhat'][:-forecast_horizon]),
-                    'MSE': mean_squared_error(data['y'], forecast['yhat'][:-forecast_horizon]),
-                    'RMSE': mean_squared_error(data['y'], forecast['yhat'][:-forecast_horizon], squared=False)
-                }
-            else:
-                metrics = {}
-        elif selected_model == 'SARIMA':
-            # You can add relevant metrics for SARIMA here
-            metrics = {}
+            # Evaluate model performance for SARIMA
+            metrics = {
+                'MAE': mean_absolute_error(data['y'][-forecast_horizon:], forecast.predicted_mean),
+                'MSE': mean_squared_error(data['y'][-forecast_horizon:], forecast.predicted_mean),
+                'RMSE': mean_squared_error(data['y'][-forecast_horizon:], forecast.predicted_mean, squared=False)
+            }
 
         # Display evaluation metrics
         st.write('## Model Evaluation Metrics')
@@ -91,16 +90,12 @@ if selected_functionality == "Run Forecast":
 
         # Display forecast plot
         st.write('## Time Series Forecast')
-        fig = go.Figure()
-
-        # Plot historical data
+        fig = px.line()
         fig.add_trace(go.Scatter(x=historical_data['ds'], y=historical_data['y'], mode='lines', name='Historical Data'))
-
-        # Plot forecasted values after historical data
         fig.add_trace(go.Scatter(x=forecast_values['ds'], y=forecast_values['yhat' if selected_model == 'Prophet' else 'predicted_mean'], mode='lines', name='Forecast'))
 
         if selected_model == 'Prophet':
-            # Plot 95% confidence interval
+            # Plot 95% confidence interval for Prophet
             fig.add_trace(go.Scatter(x=forecast_values['ds'], y=forecast['yhat_upper'], mode='lines', line=dict(color='rgba(0,100,80,0.2)'), name='Upper Bound'))
             fig.add_trace(go.Scatter(x=forecast_values['ds'], y=forecast['yhat_lower'], mode='lines', line=dict(color='rgba(0,100,80,0.2)'), name='Lower Bound'))
 
@@ -125,33 +120,32 @@ elif selected_functionality == "Prediction":
 
         # Fit the model with the historical data
         if selected_model == 'Prophet':
-            model.fit(data)
-        elif selected_model == 'SARIMA':
-            # Fit the SARIMA model
-            model_fit = model.fit(disp=False)
+            model_fit = model.fit(data)
+            
+            # Make predictions on the new dataset
+            future_data = model.make_future_dataframe(periods=len(new_data))
+            forecast_data = model_fit.predict(future_data)
 
-        # Make predictions on the new dataset
-        future_data = new_data.copy()
-        future_data['ds'] = pd.date_range(start=new_data['ds'].max(), periods=len(new_data), freq='D')
-
-        if selected_model == 'Prophet':
-            forecast_data = model.predict(future_data[['ds']])
         elif selected_model == 'SARIMA':
+            model_fit = model.fit()
+
+            # Forecast for SARIMA
             forecast_data = model_fit.get_forecast(steps=len(new_data))
 
         # Evaluate model performance for new data
         if selected_model == 'Prophet':
-            if not forecast_data.empty:
-                metrics_new_data = {
-                    'MAE': mean_absolute_error(new_data['y'], forecast_data['yhat']),
-                    'MSE': mean_squared_error(new_data['y'], forecast_data['yhat']),
-                    'RMSE': mean_squared_error(new_data['y'], forecast_data['yhat'], squared=False)
-                }
-            else:
-                metrics_new_data = {}
+            metrics_new_data = {
+                'MAE': mean_absolute_error(new_data['y'], forecast_data['yhat']),
+                'MSE': mean_squared_error(new_data['y'], forecast_data['yhat']),
+                'RMSE': mean_squared_error(new_data['y'], forecast_data['yhat'], squared=False)
+            }
+
         elif selected_model == 'SARIMA':
-            # You can add relevant metrics for SARIMA here
-            metrics_new_data = {}
+            metrics_new_data = {
+                'MAE': mean_absolute_error(new_data['y'], forecast_data.predicted_mean),
+                'MSE': mean_squared_error(new_data['y'], forecast_data.predicted_mean),
+                'RMSE': mean_squared_error(new_data['y'], forecast_data.predicted_mean, squared=False)
+            }
 
         # Display evaluation metrics for new data
         st.write('## Model Evaluation Metrics for New Dataset')
@@ -163,16 +157,12 @@ elif selected_functionality == "Prediction":
 
         # Display forecast plot for new data
         st.write('## Forecast Plot for New Dataset')
-        fig = go.Figure()
-
-        # Plot historical data for new data
+        fig = px.line()
         fig.add_trace(go.Scatter(x=historical_data_new['ds'], y=historical_data_new['y'], mode='lines', name='Historical Data'))
-
-        # Plot forecasted values for new data
         fig.add_trace(go.Scatter(x=forecast_values_new['ds'], y=forecast_values_new['yhat' if selected_model == 'Prophet' else 'predicted_mean'], mode='lines', name='Forecast'))
 
         if selected_model == 'Prophet':
-            # Plot 95% confidence interval for new data
+            # Plot 95% confidence interval for Prophet
             fig.add_trace(go.Scatter(x=forecast_values_new['ds'], y=forecast_data['yhat_upper'], mode='lines', line=dict(color='rgba(0,100,80,0.2)'), name='Upper Bound'))
             fig.add_trace(go.Scatter(x=forecast_values_new['ds'], y=forecast_data['yhat_lower'], mode='lines', line=dict(color='rgba(0,100,80,0.2)'), name='Lower Bound'))
 
