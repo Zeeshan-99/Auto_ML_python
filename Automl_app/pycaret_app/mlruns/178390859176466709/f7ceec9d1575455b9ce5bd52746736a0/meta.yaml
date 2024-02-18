@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/f7ceec9d1575455b9ce5bd52746736a0/artifacts
+end_time: 1708091708855
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: f7ceec9d1575455b9ce5bd52746736a0
+run_name: Gradient Boosting Regressor
+run_uuid: f7ceec9d1575455b9ce5bd52746736a0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708091708133
+status: 3
+tags: []
+user_id: zeesh

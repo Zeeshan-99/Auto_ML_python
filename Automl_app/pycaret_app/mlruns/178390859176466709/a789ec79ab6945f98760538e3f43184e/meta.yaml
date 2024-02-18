@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/a789ec79ab6945f98760538e3f43184e/artifacts
+end_time: 1708110097241
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: a789ec79ab6945f98760538e3f43184e
+run_name: Decision Tree Regressor
+run_uuid: a789ec79ab6945f98760538e3f43184e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708110096522
+status: 3
+tags: []
+user_id: zeesh

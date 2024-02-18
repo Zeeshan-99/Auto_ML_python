@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/b14b08ebca334d1ab03b98bb374068ad/artifacts
+end_time: 1708110288034
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: b14b08ebca334d1ab03b98bb374068ad
+run_name: K Neighbors Regressor
+run_uuid: b14b08ebca334d1ab03b98bb374068ad
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708110287418
+status: 3
+tags: []
+user_id: zeesh

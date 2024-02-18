@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/c7effc2541154bf0bcd2cd386b6e598e/artifacts
+end_time: 1708160463463
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: c7effc2541154bf0bcd2cd386b6e598e
+run_name: Ridge Regression
+run_uuid: c7effc2541154bf0bcd2cd386b6e598e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708160461639
+status: 3
+tags: []
+user_id: zeesh

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/ce4c68b9913a4b5a9c70dec6d3328813/artifacts
+end_time: 1708110292648
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: ce4c68b9913a4b5a9c70dec6d3328813
+run_name: Bayesian Ridge
+run_uuid: ce4c68b9913a4b5a9c70dec6d3328813
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708110291961
+status: 3
+tags: []
+user_id: zeesh

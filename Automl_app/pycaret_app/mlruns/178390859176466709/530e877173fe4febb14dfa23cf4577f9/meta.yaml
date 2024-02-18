@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/530e877173fe4febb14dfa23cf4577f9/artifacts
+end_time: 1708108019040
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: 530e877173fe4febb14dfa23cf4577f9
+run_name: Linear Regression
+run_uuid: 530e877173fe4febb14dfa23cf4577f9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708108018672
+status: 3
+tags: []
+user_id: zeesh

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/15db59dab4c04738806f701d6e239399/artifacts
+end_time: 1708107498497
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: 15db59dab4c04738806f701d6e239399
+run_name: Lasso Least Angle Regression
+run_uuid: 15db59dab4c04738806f701d6e239399
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708107498067
+status: 3
+tags: []
+user_id: zeesh

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/ba3c765c9dde499092c44135c8f36fd8/artifacts
+end_time: 1708110298746
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: ba3c765c9dde499092c44135c8f36fd8
+run_name: Least Angle Regression
+run_uuid: ba3c765c9dde499092c44135c8f36fd8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708110298076
+status: 3
+tags: []
+user_id: zeesh

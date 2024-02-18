@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/9f3a26daea5e4f57999c385f7a211a1e/artifacts
+end_time: 1708091848801
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: 9f3a26daea5e4f57999c385f7a211a1e
+run_name: Dummy Regressor
+run_uuid: 9f3a26daea5e4f57999c385f7a211a1e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708091848353
+status: 3
+tags: []
+user_id: zeesh

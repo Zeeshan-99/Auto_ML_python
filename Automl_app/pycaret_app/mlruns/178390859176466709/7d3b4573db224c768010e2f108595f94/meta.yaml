@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/7d3b4573db224c768010e2f108595f94/artifacts
+end_time: 1708110104452
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: 7d3b4573db224c768010e2f108595f94
+run_name: Lasso Regression
+run_uuid: 7d3b4573db224c768010e2f108595f94
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708110103936
+status: 3
+tags: []
+user_id: zeesh

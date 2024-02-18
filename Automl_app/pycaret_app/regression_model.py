@@ -8,7 +8,7 @@ def run_regression_model(df):
     df.fillna(value = df.mode().iloc[0], inplace=True)
     
     if st.button("Train regression model"):
-        setup(df, target=target)
+        setup(df, target=target,session_id=123, log_experiment=True)
         setup_df = pull()
         st.info("This is the ML Experiment settings")
         st.dataframe(setup_df)

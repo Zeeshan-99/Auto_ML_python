@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/d2cea0d359e54d909941a01863f4ddef/artifacts
+end_time: 1708091843475
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: d2cea0d359e54d909941a01863f4ddef
+run_name: Huber Regressor
+run_uuid: d2cea0d359e54d909941a01863f4ddef
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708091842948
+status: 3
+tags: []
+user_id: zeesh

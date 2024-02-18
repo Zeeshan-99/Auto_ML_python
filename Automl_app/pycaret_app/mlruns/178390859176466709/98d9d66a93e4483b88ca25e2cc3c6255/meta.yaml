@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/98d9d66a93e4483b88ca25e2cc3c6255/artifacts
+end_time: 1708091606424
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: 98d9d66a93e4483b88ca25e2cc3c6255
+run_name: AdaBoost Regressor
+run_uuid: 98d9d66a93e4483b88ca25e2cc3c6255
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708091605770
+status: 3
+tags: []
+user_id: zeesh

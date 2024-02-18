@@ -28,6 +28,8 @@ if main_choice == "Upload":
         df.to_csv("sourcedata.csv", index=None)
         with st.expander("Data preview"):
             st.dataframe(df)
+            # st.table(df)
+            
 
 if main_choice == "Profiling":
     st.title("Automated Exploratory Data Analysis")
@@ -63,7 +65,10 @@ if main_choice == "Test Regression":
         # Load the saved regression model
         with open("Regression_best_model.pkl", "rb") as model_file:
             regression_model = joblib.load(model_file)
-
+        
+        # Data preprocessing
+        df.fillna(value = df.mode().iloc[0], inplace=True)
+        
         # Example: Predict using the loaded regression model
         # You may need to modify this based on your model and input features
         X_test = df[input_features]
@@ -88,7 +93,9 @@ if main_choice == "Test Classification":
         # Load the saved classification model
         with open("Classification_best_model.pkl", "rb") as model_file:
             classification_model = joblib.load(model_file)
-
+        ## Data preprocessing
+        df.fillna(value = df.mode().iloc[0], inplace=True)
+        
         # Example: Predict using the loaded classification model
         # You may need to modify this based on your model and input features
         X_test = df[input_features]

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/ee9e2bb3bd6a4c4a824bed0230a11b52/artifacts
+end_time: 1708090790625
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: ee9e2bb3bd6a4c4a824bed0230a11b52
+run_name: Passive Aggressive Regressor
+run_uuid: ee9e2bb3bd6a4c4a824bed0230a11b52
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708090790049
+status: 3
+tags: []
+user_id: zeesh

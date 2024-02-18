@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/b05cf6a3277e4fb9a571a239ea98a891/artifacts
+end_time: 1708160450737
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: b05cf6a3277e4fb9a571a239ea98a891
+run_name: Orthogonal Matching Pursuit
+run_uuid: b05cf6a3277e4fb9a571a239ea98a891
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708160448989
+status: 3
+tags: []
+user_id: zeesh

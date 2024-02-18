@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/cc33bfaf9e5a4c628cc130d154f2a1b0/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: cc33bfaf9e5a4c628cc130d154f2a1b0
+run_name: Session Initialized a0c7
+run_uuid: cc33bfaf9e5a4c628cc130d154f2a1b0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708091820305
+status: 1
+tags: []
+user_id: zeesh

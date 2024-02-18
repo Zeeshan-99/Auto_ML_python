@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/zeesh/OneDrive%20-%20ORMAE/Documents/Projects/Self_Programming_Practice/Zee_github_projects/Auto_ML_python/Automl_app/pycaret_app/mlruns/178390859176466709/b536a9ac5bf54ec58abfd6808bc4f1e3/artifacts
+end_time: 1708110287254
+entry_point_name: ''
+experiment_id: '178390859176466709'
+lifecycle_stage: active
+run_id: b536a9ac5bf54ec58abfd6808bc4f1e3
+run_name: Extra Trees Regressor
+run_uuid: b536a9ac5bf54ec58abfd6808bc4f1e3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1708110286601
+status: 3
+tags: []
+user_id: zeesh
